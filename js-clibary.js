@@ -1,5 +1,6 @@
 let figlet = require('figlet')
 let chalk = require('chalk')
+let inquirer = require('inquirer')
 
 function printSplashScreen(callback) {
   figlet.text('Bitvision', {
@@ -18,5 +19,37 @@ function printSplashScreen(callback) {
     callback()
   })
 
+}
+
+function getLoginInfo() {
+  inquirer.prompt([
+  {
+    type: 'input',
+    name: 'key',
+    message: "What's your Coinbase Pro key?",
+    validate: function(value) {
+      return validateInput(value)
+    }
+  },
+  {
+    type: 'input',
+    name: 'secret',
+    message: "What's your Coinbase Pro secret?",
+    validate: function(value) {
+      return validateInput(value)
+    }
+  },
+  {
+    type: 'input',
+    name: 'passphrase',
+    message: "What's your Coinbase Pro passphrase?",
+    validate: function(value) {
+      return validateInput(value)
+    }
+  }
+  ]).then(answers => {
+  // TODO: Store answers["key"], answers["secret"], answers["passphrase"] in "~/.BitVision"
+  console.log(answers)
+});
 }
 
